@@ -1,0 +1,13 @@
+{
+  "name": "calculatorproject",
+  "version": "0.1.0",
+  "description": "Une calculatrice simple et intuitive développé en Vanilla JS (Javascript pur)",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "AïmèneSD",
+  "license": "ISC",
+  "type": "commonjs"
+}
