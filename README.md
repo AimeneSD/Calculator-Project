@@ -1,6 +1,6 @@
 # Calculator Project
 
-Une calculatrice simple et intuitive développé en Vanilla JS (Javascript pur)
+Une calculatrice simple et intuitive développé en Vanilla JS
 ![Aperçu](assets/screenshots/Calculator_screenshot.png)
 
 ## État actuel (0.2.0)
