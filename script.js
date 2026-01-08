@@ -47,7 +47,7 @@ function calculate(){//CALCULE SI ET SEULEMENT SI LA SYNTAXE EST CORRECTE SINON 
         expression = expression.replace(/√(\d+\.?\d*|\([^)]*\))/g, "Math.sqrt($1)");// /√(\d+\.?\d*)/g est l'écriture dite REGEX | permet de remplacer la racine carré par la fonction Math.sqrt(expression)
          
         result = eval(expression);
-        display.value=Number.isFinite ? result : "Error"
+        display.value=Number.isFinite(result) ? result : "Error"
         isCalculated=true
     }catch(error){
         display.value = "Error";
@@ -58,14 +58,22 @@ function calculate(){//CALCULE SI ET SEULEMENT SI LA SYNTAXE EST CORRECTE SINON 
 //4. ECOUTEURS D'ÉVENEMENTS
 
 window.addEventListener("keydown", (event) => {
-    const key = event.key;
+    let key = event.key;
+
+    // FIX : Détection de la touche ^ sur les claviers AZERTY (souvent identifiée comme "Dead")
+    // Sur la plupart des claviers, la touche physique se trouve au code "BracketLeft"
+    if (key === "Dead" || event.code === "BracketLeft") {
+        // On vérifie si c'est bien la touche qui est censée faire le chapeau
+        // (Sur AZERTY, c'est la touche juste à droite du P)
+        key = "^"; 
+    }
 
     // Empêche le comportement par défaut (comme cliquer sur le bouton focus par le navigateur)
     if (key === "Enter") {
         event.preventDefault(); // <--- TRÈS IMPORTANT
         calculate();
 
-    } else if (/^[0-9]$/.test(key) || operators.includes(key) || key==="(" || key ===")") { // Le ^ signifie "commence par" et le $ signifie "finit par"
+    } else if (/^[0-9]$/.test(key) || operators.includes(key) || key==="(" || key ===")" || key ===".") { // Le ^ signifie "commence par" et le $ signifie "finit par"
         // Optionnel : preventDefault ici aussi pour éviter les doubles saisies 
         // si un bouton est focus
         event.preventDefault(); 
@@ -82,4 +90,6 @@ window.addEventListener("keydown", (event) => {
         appendToDisplay("√")
     }
 });
+
+
 
