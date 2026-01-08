@@ -44,7 +44,8 @@ function calculate(){//CALCULE SI ET SEULEMENT SI LA SYNTAXE EST CORRECTE SINON 
 
     try{
         let expression = display.value.replace(/\^/g,"**")
-        expression = expression.replace(/√(\d+\.?\d*)/g, "Math.sqrt($1)");// /√(\d+\.?\d*)/g est l'écriture dite REGEX | permet de remplacer la racine carré par la fonction Math.sqrt(expression) 
+        expression = expression.replace(/√(\d+\.?\d*|\([^)]*\))/g, "Math.sqrt($1)");// /√(\d+\.?\d*)/g est l'écriture dite REGEX | permet de remplacer la racine carré par la fonction Math.sqrt(expression)
+         
         result = eval(expression);
         display.value=Number.isFinite ? result : "Error"
         isCalculated=true
@@ -64,7 +65,7 @@ window.addEventListener("keydown", (event) => {
         event.preventDefault(); // <--- TRÈS IMPORTANT
         calculate();
 
-    } else if (/^[0-9]$/.test(key) || operators.includes(key)) { // Le ^ signifie "commence par" et le $ signifie "finit par"
+    } else if (/^[0-9]$/.test(key) || operators.includes(key) || key==="(" || key ===")") { // Le ^ signifie "commence par" et le $ signifie "finit par"
         // Optionnel : preventDefault ici aussi pour éviter les doubles saisies 
         // si un bouton est focus
         event.preventDefault(); 
@@ -75,6 +76,10 @@ window.addEventListener("keydown", (event) => {
     } else if (key === "Escape") {
         event.preventDefault();
         ClearDisplay();
+    }
+    else if (key === "r" || key ==="R"){
+        event.preventDefault();
+        appendToDisplay("√")
     }
 });
 
