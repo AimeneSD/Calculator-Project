@@ -5,6 +5,10 @@ body{
     align-items: center;
     height: 100vh;
     background: linear-gradient(45deg, #b1ff71, #fffc66, #f671ff);
+    /* Empêche la sélection du texte */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;      /* IE 10 et + */
+    user-select: none;          /* Standard (Chrome, Firefox, Opera) */
 }
 
 #calculator{
@@ -56,6 +60,8 @@ button:active{
     border: none;
     color: #fff;
     background-color:hsl(0, 0%, 45%);
+    pointer-events: none; /* Le clic passe à travers, comme s'il n'y avait rien */
+    user-select: none;    /* Empêche aussi de sélectionner le texte à l'intérieur */
     
 }
 
@@ -73,4 +79,9 @@ button:active{
     filter: invert(100%);
     margin-right: 5px;
     margin-top: 5px;
+}
+
+img{
+    -webkit-user-drag: none;
+    pointer-events: none; /* L'image devient "transparente" aux clics */
 }
