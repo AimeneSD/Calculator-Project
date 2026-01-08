@@ -18,9 +18,15 @@ function appendToDisplay(input){//AJOUTE DES CARACTERES A CHAQUE APPUI DE BOUTON
         isCalculated=false;
     }
 
-    if (operators.includes(input) && operators.includes(lastchar)) {//PERMET D'EVITER LES DOUBLES OPERATEURS SUR LE DISPLAY
+    
+
+    // On bloque seulement si (Input et Last sont des opérateurs) ET que l'Input n'est PAS une racine
+    if (operators.includes(input) && operators.includes(lastchar) && input !== "√") { //PERMET D'EVITER LES DOUBLES OPERATEURS SUR LE DISPLAY
         return; // On arrête tout, on n'ajoute pas le deuxième opérateur
     }
+
+    
+
     display.value += input;
     
 
