@@ -2,7 +2,7 @@
 
 console.log("Working !");
 const display = document.getElementById("display");
-const operators = ["+","-","*","/","^"]
+const operators = ["+","-","*","/","^","√"]
 let isCalculated = false; 
 
 
@@ -44,6 +44,7 @@ function calculate(){//CALCULE SI ET SEULEMENT SI LA SYNTAXE EST CORRECTE SINON 
 
     try{
         let expression = display.value.replace(/\^/g,"**")
+        expression = expression.replace(/√(\d+\.?\d*)/g, "Math.sqrt($1)");// /√(\d+\.?\d*)/g est l'écriture dite REGEX | permet de remplacer la racine carré par la fonction Math.sqrt(expression) 
         result = eval(expression);
         display.value=Number.isFinite ? result : "Error"
         isCalculated=true
