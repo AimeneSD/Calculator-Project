@@ -2,38 +2,54 @@
 
 console.log("Working !");
 const display = document.getElementById("display");
-const operators = ["+","-","*","/"]
+const operators = ["+","-","*","/","^"]
+let isCalculated = false; 
+
 
 //2. FONCTIONS D'AFFICHAGE
 function appendToDisplay(input){//AJOUTE DES CARACTERES A CHAQUE APPUI DE BOUTON
     display.blur(); // Enlève le focus de n'importe quel élément pour nettoyer le clavier
-    
     const lastchar = display.value.slice(-1)
-    if (operators.includes(input) && operators.includes(lastchar)) {
+
+    if(isCalculated){
+        if(!operators.includes(input)){
+            display.value="";
+        }
+        isCalculated=false;
+    }
+
+    if (operators.includes(input) && operators.includes(lastchar)) {//PERMET D'EVITER LES DOUBLES OPERATEURS SUR LE DISPLAY
         return; // On arrête tout, on n'ajoute pas le deuxième opérateur
     }
-    display.value = display.value + input;
+    display.value += input;
     
 
 }
 
 function ClearDisplay(){//SUPPRIME TOUT
     display.value="";
+    isCalculated=false
 }
 
 function ClearLast(){//SUPPRIME LE DERNIER CARACTERE
     display.value = display.value.slice(0, -1);
+    isCalculated=false
 }
+
+
 
 //3. LOGIQUE DE CALCUL
 function calculate(){//CALCULE SI ET SEULEMENT SI LA SYNTAXE EST CORRECTE SINON AFFICHE "Error"
     if (display.value==="") return;
 
     try{
-        const result= eval(display.value);
+        let expression = display.value.replace(/\^/g,"**")
+        result = eval(expression);
         display.value=Number.isFinite ? result : "Error"
+        isCalculated=true
     }catch(error){
         display.value = "Error";
+        isCalculated=true
     }
 }
 
